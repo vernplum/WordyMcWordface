@@ -1,0 +1,27 @@
+{
+    "words" : [
+    
+"ARGENTINAS",
+"AABC",
+"GIBRALTAR",
+"GREENLAND",
+"GUATEMALA",
+"INDONESIA",
+"LITHUANIA",
+"MACEDONIA",
+"MAURITIUS",
+"NICARAGUA",
+"PALESTINE",
+"SINGAPORE",
+
+
+                ],
+    
+    "countdownTimer" : 30,
+    "difficulty" : 0,
+    "par" : 22,
+    "respawnMin" : 1.0,
+    "respawnMax" : 1.9,
+
+
+}
