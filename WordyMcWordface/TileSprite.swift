@@ -29,7 +29,7 @@ class TileSprite : SKSpriteNode
     {
         let offset = rowWidth / wordLength
         
-        super.init(texture: nil, color:UIColor.white, size: CGSize(width: CGFloat(offset * chars.characters.count), height: 80))
+        super.init(texture: nil, color:UIColor.white, size: CGSize(width: CGFloat(offset * chars.count), height: 80))
         
         self.chars = chars
         self.zPosition = 0.0
@@ -37,17 +37,16 @@ class TileSprite : SKSpriteNode
         self.order = order
         self.anchorPoint = CGPoint(x: 0.5, y: 0.5)
         self.tileOffset = offset
-        self.numChars = chars.characters.count
+        self.numChars = chars.count
         
         
-        let letterScale : CGFloat = 1.0 - (1 / CGFloat(wordLength))
+        let letterScale : CGFloat = 1.0 - ((1.0 / CGFloat(wordLength) * 3.0))
         
         if numChars == 2
         {
             self.position = CGPoint(x: -rowWidth / 2 + (offset * positionOrder) + offset, y: y)
 
-            let container = SKShapeNode(rect: CGRect(x: 0, y: 0, width: CGFloat(offset * chars.characters.count), height: 80), cornerRadius: 35)
-            
+            let container = SKShapeNode(rect: CGRect(x: 0, y: 0, width: CGFloat(offset * chars.count), height: 80), cornerRadius: 35)
             
             container.fillColor = c
             container.lineWidth = 3.0
@@ -68,7 +67,7 @@ class TileSprite : SKSpriteNode
             letterA.verticalAlignmentMode = SSBMFLabelVerticalAlignmentMode.center
             
             
-            if category == 1
+            if category == 0
             {
                 addDot(letterA.position, letter: letterAString, z: container.zPosition + 0.5)
             }
@@ -77,7 +76,7 @@ class TileSprite : SKSpriteNode
             
             var letterB = SSBitmapFontLabelNode()
 
-            let letterBString = String(chars[chars.characters.index(after: chars.startIndex)])
+            let letterBString = String(chars[chars.index(after: chars.startIndex)])
             letterB = myFont.node(from: letterBString)
             letterB.position = CGPoint(x: offset / 2, y:0)
             letterB.xScale = letterScale
@@ -86,7 +85,7 @@ class TileSprite : SKSpriteNode
             letterB.verticalAlignmentMode = SSBMFLabelVerticalAlignmentMode.center
             
             
-            if category == 1
+            if category == 0
             {
                 addDot(letterB.position, letter: letterBString, z: container.zPosition + 0.5)
             }
@@ -96,20 +95,19 @@ class TileSprite : SKSpriteNode
            
             if category == 1
             {
-                letterA.alpha = 0
-                letterB.alpha = 0
+                letterA.alpha = 1
+                letterB.alpha = 1
+                
+                addChild(letterA)
+                addChild(letterB)
             }
-            
-            self.addChild(letterA)
-            self.addChild(letterB)
-            
         }
         else if numChars == 3
         {
             let x = -rowWidth / 2 + offset * (positionOrder + 1) + offset / 2
             self.position = CGPoint(x: x, y: y)
 
-            let container = SKShapeNode(rect: CGRect(x: 0, y: 0, width: CGFloat(offset * chars.characters.count), height: 80), cornerRadius: 35)
+            let container = SKShapeNode(rect: CGRect(x: 0, y: 0, width: CGFloat(offset * chars.count), height: 80), cornerRadius: 35)
             container.fillColor = c
             container.lineWidth = 3.0
             container.strokeColor = UIColor.white
@@ -130,14 +128,14 @@ class TileSprite : SKSpriteNode
             
             letters.append(letterA)
             
-            if category == 1
+            if category == 0
             {
                 addDot(letterA.position, letter: letterAString, z: container.zPosition + 0.5)
             }
             
             var letterB = SSBitmapFontLabelNode()
-            let letterBString = String(chars[chars.characters.index(after: chars.startIndex)])
-            letterB = myFont.node(from: letterAString)
+            let letterBString = String(chars[chars.index(after: chars.startIndex)])
+            letterB = myFont.node(from: letterBString)
             letterB.position = CGPoint(x: 0, y:0)
             letterB.xScale = letterScale
             letterB.yScale = letterScale
@@ -146,15 +144,15 @@ class TileSprite : SKSpriteNode
             
             letters.append(letterB)
             
-            if category == 1
+            if category == 0
             {
                 addDot(letterB.position, letter: letterBString, z: container.zPosition + 0.5)
             }
             
             
             var letterC = SSBitmapFontLabelNode()
-            let letterCString = String(chars[chars.characters.index(after: chars.startIndex)])
-            letterC = myFont.node(from: letterAString)
+            let letterCString = String(chars[chars.index(before: chars.endIndex)])
+            letterC = myFont.node(from: letterCString)
             letterC.position = CGPoint(x: offset, y:0)
             letterC.xScale = letterScale
             letterC.yScale = letterScale
@@ -163,22 +161,22 @@ class TileSprite : SKSpriteNode
             
             letters.append(letterC)
             
-            if category == 1
+            if category == 0
             {
                 addDot(letterC.position, letter: letterCString, z: container.zPosition + 0.5)
             }
             
             if category == 1
             {
-                letterA.alpha = 0
-                letterB.alpha = 0
-                letterC.alpha = 0
+                letterA.alpha = 1
+                letterB.alpha = 1
+                letterC.alpha = 1
+                
+                addChild(letterA)
+                addChild(letterB)
+                addChild(letterC)
             }
             
-            
-            addChild(letterA)
-            addChild(letterB)
-            addChild(letterC)
         }
         
         self.name = "tile" + chars
@@ -273,7 +271,7 @@ class TileSprite : SKSpriteNode
         }
         
   
-        chars = String(chars.characters.reversed())
+        chars = String(chars.reversed())
     }
     
     
@@ -285,3 +283,4 @@ class TileSprite : SKSpriteNode
     
     
 }
+

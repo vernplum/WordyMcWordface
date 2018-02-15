@@ -191,7 +191,17 @@ class GameScene: SKScene
         let filePath = Bundle.main.path(forResource: _filename, ofType: "json")
         _ = try? Data(contentsOf: URL(fileURLWithPath: filePath!))
    //     let json = JSON(data: data!)
-        let words = ["COLOMBIA", "PENIS", "BOOBIES", "TITTIES", "VALUATION" ];//json["words"].arrayValue
+        let words = ["COLOMBIA", "SNAKE", "PUPPIES", "TOASTED", "VALUATION", "MCWORDFACE", "GIBSON", "CONTOURED", "FINANCIALS" ];//json["words"].arrayValue
+/*
+        let words = ["123456",
+                "233440",
+                "50033445",
+                "0112233445",
+                "5224400112",
+                "011223443",
+                "2002255232",
+                "1441144551" ]
+   */
         
         setupGestureHandlers()
         
@@ -339,7 +349,7 @@ class GameScene: SKScene
             }
             
             
-            if myRow?.category == 0
+            if myRow?.category == 1   // the category for words
             {
                 sumString = ""
                 
@@ -347,6 +357,7 @@ class GameScene: SKScene
                 {
                     sumString += tile.chars
                 }
+
                 
                 if sumString == myRow?.word
                 {
@@ -365,19 +376,17 @@ class GameScene: SKScene
                     }
                 }
             }
-            else if myRow?.category == 1
+            else //if myRow?.category == 1   // Dots?
             {
                 var mismatch : Bool = false
             
                 //for var i = 0; i < myRow!.tileCount - 1; i = i + 1
-                for i in 1...myRow!.tileCount - 1
+                for i in 0 ... myRow!.tileCount - 1
                 {
-                    let letterTileARight = myRow?.tiles[i].chars[myRow!.tiles[i].chars.characters.index(after: myRow!.tiles[i].chars.startIndex)]
+                    let letterTileARight = myRow?.tiles[i].chars[myRow!.tiles[i].chars.index(myRow!.tiles[i].chars.endIndex, offsetBy: -1)]
                     
-                    let letterTileBLeft = myRow?.tiles[i + 1].chars[myRow!.tiles[i + 1].chars.startIndex]
-                    
-                    print(i, letterTileARight ?? "A", letterTileBLeft)
-                    
+                    let letterTileBLeft = myRow?.tiles[i + 1].chars[myRow!.tiles[i + 1].chars.index(myRow!.tiles[i + 1].chars.startIndex, offsetBy: 0)]
+      
                     if letterTileARight != letterTileBLeft
                     {
                         mismatch = true
@@ -565,7 +574,6 @@ class GameScene: SKScene
             {
                 case UISwipeGestureRecognizerDirection.right:
                 
-                    
                     if selectedTile?.order < (selectedRow?.tiles.count)! - 1
                     {
                         tileToSwapWith = selectedRow?.tiles[selectedTile!.order + 1]
@@ -576,6 +584,7 @@ class GameScene: SKScene
                     }
                 
                 case UISwipeGestureRecognizerDirection.left:
+                
                     if selectedTile?.order > 0
                     {
                         tileToSwapWith = selectedRow?.tiles[selectedTile!.order - 1]
@@ -607,7 +616,7 @@ class GameScene: SKScene
             let oldOrder0 = selectedTile!.order
             let oldOrder1 = tileToSwapWith!.order
             
-            if selectedTile!.numChars == 2 && tileToSwapWith!.numChars == 2
+            if selectedTile!.numChars == tileToSwapWith!.numChars
             {
                 let temp  = selectedTile!.positionOrder
                 selectedTile!.positionOrder = tileToSwapWith!.positionOrder
@@ -679,7 +688,6 @@ class GameScene: SKScene
             selectedRow!.tiles[oldOrder1].order = oldOrder1
         }
     }
-    
 }
 
 

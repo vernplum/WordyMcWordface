@@ -136,44 +136,45 @@ class Row : SKSpriteNode
 
 func splitWord(_ word: String) -> [String]
 {
-    let tileCount = word.count / 2
-
-    let rand: Int = Int(arc4random_uniform(UInt32(tileCount)))
+    var arrayOfArraysOfArrays = [[[Int]]]()
     
-    let mod = word.count % 2
-
-    var addon = 2;
+    let arrayOfTileSizes5: [[Int]] = [[2, 3]]
+    let arrayOfTileSizes6: [[Int]] = [[3, 3], [2, 2, 2]]
+    let arrayOfTileSizes7: [[Int]] = [[3, 2, 2]]
+    let arrayOfTileSizes8: [[Int]] = [[3, 3, 2], [2, 2, 2, 2]]
+    let arrayOfTileSizes9: [[Int]] = [[3, 3, 3], [3, 2, 2, 2]]
+    let arrayOfTileSizes10: [[Int]] = [[3, 3, 2, 2], [2, 2, 2, 2, 2]]
     
+    arrayOfArraysOfArrays.append(arrayOfTileSizes5)
+    arrayOfArraysOfArrays.append(arrayOfTileSizes6)
+    arrayOfArraysOfArrays.append(arrayOfTileSizes7)
+    arrayOfArraysOfArrays.append(arrayOfTileSizes8)
+    arrayOfArraysOfArrays.append(arrayOfTileSizes9)
+    arrayOfArraysOfArrays.append(arrayOfTileSizes10)
+    
+    let size = arrayOfArraysOfArrays[word.count - 5].count
+    let rand: Int = Int(arc4random_uniform(UInt32(size)))
+    var arrayOfTileSizes = arrayOfArraysOfArrays[word.count - 5][rand]
+    arrayOfTileSizes.shuffle()
     var returnArray : [String] = Array()
-
-    var counter = 0
-
-    //for var i = 0; i < tileCount * 2; i = i + addon
+    var jump = 0
     
-    for i in stride(from: 0, to: tileCount * 2, by: addon)
+    
+    for i in stride(from: 0, to: arrayOfTileSizes.count, by: 1)
     {
-        if counter == rand && mod == 1
-        {
-            addon = 3
-        }
-        else
-        {
-            addon = 2
-        }
-
-        let r = Range(word.index(word.startIndex, offsetBy: i) ..< word.index(word.startIndex, offsetBy: i + addon))
+        let startIndex = word.index(word.startIndex, offsetBy: jump)
         
-        print(word[r])
+        let endIndex = word.index(word.startIndex, offsetBy: jump + arrayOfTileSizes[i])
         
-        returnArray.append(String(word[r]))
+        //            print("i = " + String(i) + " " + word[startIndex ..< endIndex])
         
-        counter = counter + 1
+        returnArray.append(String(word[startIndex ..< endIndex]))
+        
+        jump += arrayOfTileSizes[i]
     }
     
     
-    
     let r1 = Int(arc4random_uniform(UInt32(returnArray.count)))
-    
     var r2 : Int
     
     repeat
@@ -182,11 +183,10 @@ func splitWord(_ word: String) -> [String]
     }
     while (r2 == r1)
     
-  
     returnArray[r1] = String(returnArray[r1].reversed())
     returnArray[r2] = String(returnArray[r2].reversed())
-    
     returnArray.shuffle()
+    
     
     return returnArray
 }
