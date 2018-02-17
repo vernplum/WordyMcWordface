@@ -40,13 +40,13 @@ class TileSprite : SKSpriteNode
         self.numChars = chars.count
         
         
-        let letterScale : CGFloat = 1.0 - ((1.0 / CGFloat(wordLength) * 3.0))
+        let letterScale : CGFloat = ((1.0 / CGFloat(wordLength) * 5.0))
         
         if numChars == 2
         {
             self.position = CGPoint(x: -rowWidth / 2 + (offset * positionOrder) + offset, y: y)
 
-            let container = SKShapeNode(rect: CGRect(x: 0, y: 0, width: CGFloat(offset * chars.count), height: 80), cornerRadius: 35)
+            let container = SKShapeNode(rect: CGRect(x: 0, y: 0, width: CGFloat(offset * chars.count), height: 80), cornerRadius: 25)
             
             container.fillColor = c
             container.lineWidth = 3.0
@@ -107,7 +107,7 @@ class TileSprite : SKSpriteNode
             let x = -rowWidth / 2 + offset * (positionOrder + 1) + offset / 2
             self.position = CGPoint(x: x, y: y)
 
-            let container = SKShapeNode(rect: CGRect(x: 0, y: 0, width: CGFloat(offset * chars.count), height: 80), cornerRadius: 35)
+            let container = SKShapeNode(rect: CGRect(x: 0, y: 0, width: CGFloat(offset * chars.count), height: 80), cornerRadius: 20)
             container.fillColor = c
             container.lineWidth = 3.0
             container.strokeColor = UIColor.white
@@ -226,14 +226,13 @@ class TileSprite : SKSpriteNode
 
     required init?(coder aDecoder: NSCoder)
     {
-        
-        
         super.init(texture: nil, color:UIColor.white,size: CGSize(width: 64, height: 64))
     }
     
     
     func rotateLeft()
     {
+    print("SIM: " + String(somethingIsMoving))
         if somethingIsMoving == true
         {
             return
@@ -247,6 +246,7 @@ class TileSprite : SKSpriteNode
         
         self.run(rotateAction, completion:
         {
+        somethingIsMoving = false
             self.zPosition -= 2.0
         })
         
@@ -255,6 +255,7 @@ class TileSprite : SKSpriteNode
         let selectedSound = SKAction.playSoundFileNamed("coin_collect", waitForCompletion: false)
                 
         run(selectedSound)
+        
         
         for letter in letters
         {
@@ -278,9 +279,5 @@ class TileSprite : SKSpriteNode
     func rotateRight()
     {
     }
-    
-    
-    
-    
 }
 

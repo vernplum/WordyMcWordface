@@ -1,20 +1,52 @@
 {
-    "words" : [ "0112",
-                "233440",
-                "50033445",
-                "0112233445",
-                "5224400112",
-                "011223443",
-                "2002255232",
-                "1441144551"
-
-                ],
-    
-    "countdownTimer" : 30,
-    "difficulty" : 0,
-    "par" : 22,
-    "respawnMin" : 1.0,
-    "respawnMax" : 1.9,
-
-
+    "levelConfig" :
+    {
+        "countdownTimer" : 30,
+        "difficulty" : 0,
+        "par" : 22,
+        
+        "levelWords" :
+        [
+            {
+                "word" : "SQUARE",
+                "category" : 1
+            },
+            {
+                "word" : "TRIANGLE",
+                "category" : 1
+            },
+            {
+                "word" : "CIRCLE",
+                "category" : 1
+            },
+            {
+                "word" : "RECTANGLE",
+                "category" : 1
+            },
+            {
+                "word" : "CRESCENT",
+                "category" : 1
+            },
+            {
+                "word" : "DIAMOND",
+                "category" : 1
+            },
+            {
+                "word" : "TRAPEZIUM",
+                "category" : 1
+            },
+            {
+                "word" : "DIAMOND",
+                "category" : 1
+            },
+            {
+                "word" : "HEART",
+                "category" : 1
+            },
+            {
+                "word" : "HEXAGON",
+                "category" : 1
+            },
+        ]
+    }
 }

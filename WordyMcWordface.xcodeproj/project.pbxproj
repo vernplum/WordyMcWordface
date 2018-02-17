@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		640202032035F0A400C3C7E4 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 640202022035F0A300C3C7E4 /* StoreKit.framework */; };
 		640DB0CB1D4098410085F56F /* ScoreBarborder.png in Resources */ = {isa = PBXBuildFile; fileRef = 640DB0C91D4098410085F56F /* ScoreBarborder.png */; };
 		640DB0CC1D4098410085F56F /* ScoreBarclock.png in Resources */ = {isa = PBXBuildFile; fileRef = 640DB0CA1D4098410085F56F /* ScoreBarclock.png */; };
 		640DB0CE1D4098AD0085F56F /* ScorebarBackground skin.png in Resources */ = {isa = PBXBuildFile; fileRef = 640DB0CD1D4098AD0085F56F /* ScorebarBackground skin.png */; };
@@ -61,6 +62,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		640202022035F0A300C3C7E4 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		640DB0C91D4098410085F56F /* ScoreBarborder.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ScoreBarborder.png; sourceTree = "<group>"; };
 		640DB0CA1D4098410085F56F /* ScoreBarclock.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ScoreBarclock.png; sourceTree = "<group>"; };
 		640DB0CD1D4098AD0085F56F /* ScorebarBackground skin.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ScorebarBackground skin.png"; sourceTree = "<group>"; };
@@ -127,6 +129,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				640202032035F0A400C3C7E4 /* StoreKit.framework in Frameworks */,
 				64B7711B1CEDFD990028E22B /* GameKit.framework in Frameworks */,
 				64B7712F1CEE0EAA0028E22B /* libSSBitmapFont.a in Frameworks */,
 			);
@@ -135,6 +138,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		640202002035F04D00C3C7E4 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				640202022035F0A300C3C7E4 /* StoreKit.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		646B5ADA1CF4080D001C2C90 /* Libraries */ = {
 			isa = PBXGroup;
 			children = (
@@ -180,6 +191,7 @@
 				64B7711A1CEDFD990028E22B /* GameKit.framework */,
 				64B771031CEDFD580028E22B /* WordyMcWordface */,
 				64B771021CEDFD580028E22B /* Products */,
+				640202002035F04D00C3C7E4 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -424,6 +436,7 @@
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
+				"FRAMEWORK_SEARCH_PATHS[arch=*]" = "$(SRCROOT)";
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -478,6 +491,7 @@
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				"FRAMEWORK_SEARCH_PATHS[arch=*]" = "$(SRCROOT)";
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
@@ -503,6 +517,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = S34RVGG9W9;
+				"FRAMEWORK_SEARCH_PATHS[arch=*]" = "";
 				INFOPLIST_FILE = WordyMcWordface/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
@@ -537,6 +552,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "WordyMcWordface/WordyMcWordface-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
 				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
 				SWIFT_VERSION = 4.0;
 			};

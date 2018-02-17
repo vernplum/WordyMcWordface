@@ -101,6 +101,7 @@ class GameScene: SKScene
     
     override func didMove(to view: SKView)
     {
+
         rootBGNode = SKSpriteNode(color: UIColor.red, size: CGSize.zero)//(width: self.frame.size.width * 2, height: self.frame.size.height * 2))
         rootBGNode!.position = CGPoint(x: self.size.width , y: self.size.height / 2)
         rootBGNode!.zPosition = -10
@@ -184,36 +185,22 @@ class GameScene: SKScene
         invisibleRectRight.physicsBody?.friction = 0
         
         addChild(invisibleRectRight)
-        
-
-        let _filename = "Level_1"
-        
-        let filePath = Bundle.main.path(forResource: _filename, ofType: "json")
-        _ = try? Data(contentsOf: URL(fileURLWithPath: filePath!))
-   //     let json = JSON(data: data!)
-        let words = ["COLOMBIA", "SNAKE", "PUPPIES", "TOASTED", "VALUATION", "MCWORDFACE", "GIBSON", "CONTOURED", "FINANCIALS" ];//json["words"].arrayValue
-/*
-        let words = ["123456",
-                "233440",
-                "50033445",
-                "0112233445",
-                "5224400112",
-                "011223443",
-                "2002255232",
-                "1441144551" ]
-   */
-        
+ 
         setupGestureHandlers()
         
         myView = self.view!
+
+
+        let _filename = "Level_1"
+        
+        var theLevel = Level(filename: _filename)
+
     
-        for i in 0 ..< words.count
+        for i in 0 ..< theLevel.words.count
         {
-            let delayAction = SKAction.wait(forDuration: Double(i) * 3)
+            let delayAction = SKAction.wait(forDuration: Double(i) * 5)
         
-            //let row = Row(word: words[i].stringValue, yPos: 1334, category: RowCategory.Words)
-        
-            let row = Row(word: words[i], yPos: 1334, category: 1)
+            let row = Row(word: theLevel.words[i].word, yPos: 1334, category: theLevel.words[i].category)
         
             self.myRows.append(row)
         
@@ -225,21 +212,21 @@ class GameScene: SKScene
             })
         }
 
-//        
-//        for var i = 4; i < 9; i = i + 1
-//        {
-//            let offset = rowWidth / i
-//            
-//            for var j = 0; j < i; j = j + 1
-//            {
-//                var circle = SKShapeNode(circleOfRadius: 3.0)
-//                circle.position = CGPoint(x: rowWidth / 4 + (offset / 2) + offset * j, y: 100 + (i - 3) * 200)
-//                circle.fillColor = UIColor.greenColor()
-//                circle.zPosition = -10
-//                addChild(circle)
-//            }
-//        }
-        
+     /*
+        for  i in 4 ... 9
+        {
+            let offset = rowWidth / i
+            
+            for j in 0 ... i
+            {
+                var circle = SKShapeNode(circleOfRadius: 3.0)
+                circle.position = CGPoint(x: rowWidth / 4 + (offset / 2) + offset * j, y: 100 + (i - 3) * 200)
+                circle.fillColor = UIColor.green
+                circle.zPosition = -10
+                addChild(circle)
+            }
+       }
+        */
         
         let scoreBarBacking = SKSpriteNode(imageNamed: "ScorebarBackground skin")
         scoreBarBacking.position = CGPoint(x: 375, y: 1400)
@@ -307,7 +294,6 @@ class GameScene: SKScene
    
     override func update(_ currentTime: TimeInterval)
     {
-            
         if clockRunning == true
         {
             sixtythsTicker += 1
@@ -380,20 +366,44 @@ class GameScene: SKScene
             {
                 var mismatch : Bool = false
             
+            
                 //for var i = 0; i < myRow!.tileCount - 1; i = i + 1
-                for i in 0 ... myRow!.tileCount - 1
+                for i in 0 ... myRow!.tileCount - 2
                 {
-                    let letterTileARight = myRow?.tiles[i].chars[myRow!.tiles[i].chars.index(myRow!.tiles[i].chars.endIndex, offsetBy: -1)]
                     
-                    let letterTileBLeft = myRow?.tiles[i + 1].chars[myRow!.tiles[i + 1].chars.index(myRow!.tiles[i + 1].chars.startIndex, offsetBy: 0)]
+                    print("=========")
+                    print(i)
+                    print(String(describing: myRow?.tiles[i]))
+                    let tileA = myRow?.tiles[i].chars  // all this fucking crap just to get the character. Fuck Swift and its string handling
+                    
+                    let tileARightmostIndex = tileA?.index((tileA?.endIndex)!, offsetBy: -1)
+                    
+                    let tileAChar = tileA![tileARightmostIndex!]
+                    
+                    print("A Left ")
+                    print(tileAChar)
+                    
+                    //let letterTileARight = myRow?.tiles[i].chars[myRow!.tiles[i].chars.index(myRow!.tiles[i].chars.endIndex, offsetBy: -1)]
+                    
+                    
+                    let tileB = myRow?.tiles[i + 1].chars
+                    
+                    let tileBLeftmostIndex = tileB?.index((tileB?.startIndex)!, offsetBy: 0)
+                    
+                    let tileBChar = tileB![tileBLeftmostIndex!]
+                    
+                    print ("B right" )
+                    print(tileBChar)
+                    //let letterTileBLeft = myRow?.tiles[i + 1].chars[myRow!.tiles[i + 1].chars.index(myRow!.tiles[i + 1].chars.startIndex, offsetBy: 0)]
       
-                    if letterTileARight != letterTileBLeft
+                    if tileAChar != tileBChar
                     {
                         mismatch = true
                         
                         break
                     }
                 }
+                
                 
                 if mismatch == false
                 {
@@ -413,8 +423,9 @@ class GameScene: SKScene
                 }
             }
         }
-
     }
+    
+    
     
     func setupGestureHandlers()
     {
@@ -680,7 +691,7 @@ class GameScene: SKScene
                somethingIsMoving = false
             })
             
-            var tempTile = tileToSwapWith
+     //       var tempTile = tileToSwapWith
             selectedRow!.tiles[oldOrder0] = tileToSwapWith!
             selectedRow!.tiles[oldOrder1] = selectedTile!
             

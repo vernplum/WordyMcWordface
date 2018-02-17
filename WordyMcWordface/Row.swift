@@ -31,7 +31,6 @@ class Row : SKSpriteNode
     
     init(word: String, yPos: Int, category : Int)
     {
-    
         self.tiles = Array()
         
         self.word = word
@@ -49,8 +48,8 @@ class Row : SKSpriteNode
         
         var col = UIColor()
         
-        if category == 0
-        {
+//        if category == 0
+  //      {
             switch j
             {
                 case 0:
@@ -82,11 +81,11 @@ class Row : SKSpriteNode
                 default:
                     break
             }
-        }
-        else
-        {
-            col = UIColor.black
-        }
+//        }
+//        else
+//        {
+//            col = UIColor.black
+ //       }
         
         
         for tileChars in splitString
@@ -101,7 +100,7 @@ class Row : SKSpriteNode
             
             orderCount = orderCount + 1
             
-            print(t.positionOrder, t.order)
+//            print(t.positionOrder, t.order)
         }
         
         self.tileCount = splitString.count
